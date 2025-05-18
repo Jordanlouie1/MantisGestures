@@ -4,6 +4,11 @@ import mediapipe as mp
 import math
 from collections import deque
 
+from pyautogui import leftClick
+
+from mouse import Mouse
+import pyautogui as pag
+import math
 
 class HandGestureRecognizer:
     def __init__(self, max_hands=1, detection_confidence=0.7, tracking_confidence=0.7):
@@ -40,7 +45,7 @@ class HandGestureRecognizer:
         # Variables to store current detected gesture
         detected_gesture = "None"
         hand_landmarks = None
-
+        mouse = Mouse()
         # Check if hand landmarks are detected
         if results.multi_hand_landmarks:
             for hand_lms in results.multi_hand_landmarks:
@@ -68,14 +73,19 @@ class HandGestureRecognizer:
 
                 # Detect swipes
                 #swipe = self.detect_swipe(hand_lms)
-
+                wristCoordinates = hand_lms.landmark[self.mp_hands.HandLandmark.WRIST]
                 # Update the current gesture
                 if pinch:
                     detected_gesture = "Pinch"
+                    normalPinch = wristCoordinates.y - 0.5
+                    mouse.scroll(normalPinch)
                 elif peace:
                     detected_gesture = "Peace Sign"
+                    mouse.right_click_drag(wristCoordinates.x, wristCoordinates.y)
                 elif closed:
                     detected_gesture = "Closed Hand"
+                    mouse.left_click_drag(wristCoordinates.x, wristCoordinates.y)
+
                 #elif vulcan:
                  #   detected_gesture = "Vulcan"
                 wristCoordinates = hand_lms.landmark[self.mp_hands.HandLandmark.WRIST]
@@ -86,6 +96,7 @@ class HandGestureRecognizer:
         else:
             # Reset gesture tracking if no hands detected
             self.prev_hand_center = None
+            mouse.release()
 
 
         self.current_gesture = detected_gesture
