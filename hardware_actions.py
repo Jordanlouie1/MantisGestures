@@ -26,7 +26,7 @@ class Mouse:
         self.move(camera_x, camera_y);
     
     def scroll(self, camera_dy):
-        pag.scroll(-10 * self.screen_height*camera_dy/self.camera_height);
+        pag.scroll(-10 * math.floor(self.screen_height*camera_dy/self.camera_height));
         
     def __calculateNewCoordinates(self, camera_x, camera_y):
         new_width = math.floor(self.screen_width * camera_x / self.camera_width);
