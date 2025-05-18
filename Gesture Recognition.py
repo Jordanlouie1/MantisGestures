@@ -10,6 +10,7 @@ from mouse import Mouse
 import pyautogui as pag
 import math
 
+mouse = Mouse()
 class HandGestureRecognizer:
     def __init__(self, max_hands=1, detection_confidence=0.7, tracking_confidence=0.7):
         # Initialize MediaPipe Hands
@@ -45,7 +46,7 @@ class HandGestureRecognizer:
         # Variables to store current detected gesture
         detected_gesture = "None"
         hand_landmarks = None
-        mouse = Mouse()
+
         # Check if hand landmarks are detected
         if results.multi_hand_landmarks:
             for hand_lms in results.multi_hand_landmarks:
@@ -81,10 +82,10 @@ class HandGestureRecognizer:
                     mouse.scroll(normalPinch)
                 elif peace:
                     detected_gesture = "Peace Sign"
-                    mouse.right_click_drag(wristCoordinates.x, wristCoordinates.y)
+                    mouse.left_click_drag(wristCoordinates.x, wristCoordinates.y)
                 elif closed:
                     detected_gesture = "Closed Hand"
-                    mouse.left_click_drag(wristCoordinates.x, wristCoordinates.y)
+                    mouse.right_click_drag(wristCoordinates.x, wristCoordinates.y)
 
                 #elif vulcan:
                  #   detected_gesture = "Vulcan"
@@ -173,7 +174,7 @@ class HandGestureRecognizer:
 # Main function to run the gesture recognition
 def main():
     # Initialize webcam
-    cap = cv2.VideoCapture(1)
+    cap = cv2.VideoCapture(1) #Camera0 for integrated camera
 
     # Initialize gesture recognizer
     gesture_recognizer = HandGestureRecognizer()
