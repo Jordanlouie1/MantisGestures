@@ -15,7 +15,7 @@ class Mouse:
     
     def move(self, camera_x, camera_y):
         new_width, new_height = self.__calculateNewCoordinates(camera_x, camera_y);
-        pag.moveTo(new_width, new_height, 1);
+        pag.moveTo(new_width, new_height, pag.MINIMUM_DURATION);
     
     def left_click_drag(self, camera_x, camera_y):
         pag.mouseDown();
