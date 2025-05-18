@@ -33,6 +33,7 @@ class Mouse:
     
     def release(self):
         pag.mouseUp()
+        pag.mouseUp(button="right")
         if(self.leftMouseDown): self.leftMouseDown = False
         if(self.rightMouseDown): self.rightMouseDown = False
     
