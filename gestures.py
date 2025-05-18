@@ -1,13 +1,9 @@
 import cv2
-import numpy as np
 import mediapipe as mp
 import math
 from collections import deque
 
-from pyautogui import leftClick
-
 from mouse import Mouse
-import pyautogui as pag
 import math
 
 mouse = Mouse()
@@ -174,7 +170,7 @@ class HandGestureRecognizer:
 # Main function to run the gesture recognition
 def main():
     # Initialize webcam
-    cap = cv2.VideoCapture(1) #Camera0 for integrated camera
+    cap = cv2.VideoCapture(0) #Camera1 for external camera
 
     # Initialize gesture recognizer
     gesture_recognizer = HandGestureRecognizer()
